@@ -14,6 +14,10 @@
 		C09200131DB83E0A00C2EBF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C09200111DB83E0A00C2EBF3 /* LaunchScreen.storyboard */; };
 		C092001E1DB83E0A00C2EBF3 /* bucketListV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C092001D1DB83E0A00C2EBF3 /* bucketListV2Tests.swift */; };
 		C09200291DB83E0A00C2EBF3 /* bucketListV2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09200281DB83E0A00C2EBF3 /* bucketListV2UITests.swift */; };
+		C09200371DB83E4700C2EBF3 /* BucketListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09200361DB83E4700C2EBF3 /* BucketListViewController.swift */; };
+		C09200391DB8401100C2EBF3 /* MissionsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09200381DB8401100C2EBF3 /* MissionsDetailsViewController.swift */; };
+		C092003B1DB840EA00C2EBF3 /* CancelButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C092003A1DB840EA00C2EBF3 /* CancelButtonDelegate.swift */; };
+		C092003D1DB8443200C2EBF3 /* DoneButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C092003C1DB8443200C2EBF3 /* DoneButtonDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +51,10 @@
 		C09200241DB83E0A00C2EBF3 /* bucketListV2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bucketListV2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C09200281DB83E0A00C2EBF3 /* bucketListV2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bucketListV2UITests.swift; sourceTree = "<group>"; };
 		C092002A1DB83E0A00C2EBF3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C09200361DB83E4700C2EBF3 /* BucketListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BucketListViewController.swift; sourceTree = "<group>"; };
+		C09200381DB8401100C2EBF3 /* MissionsDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissionsDetailsViewController.swift; sourceTree = "<group>"; };
+		C092003A1DB840EA00C2EBF3 /* CancelButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancelButtonDelegate.swift; sourceTree = "<group>"; };
+		C092003C1DB8443200C2EBF3 /* DoneButtonDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoneButtonDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,10 @@
 				C09200081DB83E0A00C2EBF3 /* AppDelegate.swift */,
 				C092000A1DB83E0A00C2EBF3 /* ViewController.swift */,
 				C092000C1DB83E0A00C2EBF3 /* Main.storyboard */,
+				C09200381DB8401100C2EBF3 /* MissionsDetailsViewController.swift */,
+				C092003C1DB8443200C2EBF3 /* DoneButtonDelegate.swift */,
+				C092003A1DB840EA00C2EBF3 /* CancelButtonDelegate.swift */,
+				C09200361DB83E4700C2EBF3 /* BucketListViewController.swift */,
 				C092000F1DB83E0A00C2EBF3 /* Assets.xcassets */,
 				C09200111DB83E0A00C2EBF3 /* LaunchScreen.storyboard */,
 				C09200141DB83E0A00C2EBF3 /* Info.plist */,
@@ -259,8 +271,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C09200391DB8401100C2EBF3 /* MissionsDetailsViewController.swift in Sources */,
+				C092003D1DB8443200C2EBF3 /* DoneButtonDelegate.swift in Sources */,
 				C092000B1DB83E0A00C2EBF3 /* ViewController.swift in Sources */,
+				C09200371DB83E4700C2EBF3 /* BucketListViewController.swift in Sources */,
 				C09200091DB83E0A00C2EBF3 /* AppDelegate.swift in Sources */,
+				C092003B1DB840EA00C2EBF3 /* CancelButtonDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +521,7 @@
 				C092002F1DB83E0A00C2EBF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C09200301DB83E0A00C2EBF3 /* Build configuration list for PBXNativeTarget "bucketListV2Tests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +530,7 @@
 				C09200321DB83E0A00C2EBF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C09200331DB83E0A00C2EBF3 /* Build configuration list for PBXNativeTarget "bucketListV2UITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +539,7 @@
 				C09200351DB83E0A00C2EBF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
