@@ -6,55 +6,76 @@
 //  Copyright © 2016 Daniel Thompson. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class BucketListViewController: UITableViewController, DoneButtonDelegate, CancelButtonDelegate {
     
-    var missions = ["Sky diving", "Live in Hawaii"]
+    var missions = [Mission]()
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath){
-        performSegue(withIdentifier: "EditMission", sender: tableView.cellForRow(at: indexPath))
+        performSegue(withIdentifier: "MissionDetails", sender: tableView.cellForRow(at: indexPath))
     }
     
+    @IBAction func addMissionButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "MissionDetails", sender: UIBarButtonItem.self)
+    }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "AddNewMission" {
-            let navigationController = segue.destination as! UINavigationController
-            let controller = navigationController.topViewController as! MissionDetailsViewController
-            controller.cancelButtonDelegate = self
-            controller.doneButtonDelegate = self
-        } else if segue.identifier == "EditMission" {
-            let navigationController = segue.destination as! UINavigationController
-            let controller = navigationController.topViewController as! MissionDetailsViewController
-            print("Sender:")
-            print("\(sender)")
-//            controller.newMissionTextField.text = missions[]
-            controller.cancelButtonDelegate = self
-            controller.doneButtonDelegate = self
-//            controller.newMissionTextField.text = sender.tag
-            if let indexPath = tableView.indexPath(for: sender as! UITableViewCell){
-                controller.missionToEdit = missions[indexPath.row]
+        let navigationController = segue.destination as! UINavigationController
+        let controller = navigationController.topViewController as! MissionDetailsViewController
+        print("Sender:"); print("\(sender)")
+        controller.cancelButtonDelegate = self
+        controller.doneButtonDelegate = self
+        if ((sender as? UITableViewCell) != nil) {
+            if let indexPath = tableView.indexPath(for: (sender as? UITableViewCell)!){
+                controller.editingBool = true
+//                controller.missionToEdit = missions[indexPath.row]
                 controller.missionToEditIndexPath = indexPath.row
             }
         }
+            controller.editingBool = false
+
     }
     
     func addMission(controller: MissionDetailsViewController, didFinishAddingMission mission: String){
         dismiss(animated: true, completion: nil)
-        missions.append(mission)
+        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        let newMission = NSEntityDescription.insertNewObject(forEntityName: "Mission", into: managedObjectContext) as! Mission
+        newMission.details = mission
+        if managedObjectContext.hasChanges {
+            do{
+                try managedObjectContext.save()
+                print("success")
+            } catch {
+                print("\(error)")
+            }
+        }
+        fetchAllMissions()
         tableView.reloadData()
     }
     
     func editMission(controller: MissionDetailsViewController, didFinishEditingMission mission: String, atIndexPath indexPath: Int){
         dismiss(animated: true, completion: nil)
-        print("\(indexPath)")
         missions.remove(at: indexPath)
-        missions.append(mission)
+//        missions.append(mission)
         tableView.reloadData()
     }
     
     func cancelButtonPressedFrom() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func fetchAllMissions() {
+        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        let userRequest: NSFetchRequest<Mission> = NSFetchRequest(entityName: "Mission")
+        do {
+            let results = try managedObjectContext.fetch(userRequest)
+            missions = results
+        } catch {
+            print("\(error)")
+        }
+        
     }
     
     
@@ -84,7 +105,7 @@ class BucketListViewController: UITableViewController, DoneButtonDelegate, Cance
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "missionsCell", for: indexPath)
         
-        cell.textLabel?.text = missions[indexPath.row]
+        cell.textLabel?.text = missions[indexPath.row].details
 
         // Configure the cell...
 
@@ -92,7 +113,29 @@ class BucketListViewController: UITableViewController, DoneButtonDelegate, Cance
     }
     
     override func viewDidLoad() {
+        
+       fetchAllMissions()
+        
+//        _ = NSEntityDescription.insertNewObject(forEntityName: "Mission", into: managedObjectContext) as! Mission
+        
+//        let missionRequest: NSFetchRequest<Mission> = NSFetchRequest(entityName: "Mission")
+        
         super.viewDidLoad()
+    /*
+        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        
+        let mission = NSEntityDescription.insertNewObject(forEntityName: "Mission", into: managedObjectContext) as! Mission
+        mission.details = "Sutekina Afternoon"
+        
+        if managedObjectContext.hasChanges {
+            do{
+                try managedObjectContext.save()
+                print("success")
+            } catch {
+                print("\(error)")
+            }
+        }
+    */
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

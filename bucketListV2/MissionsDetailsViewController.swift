@@ -15,6 +15,7 @@ class MissionDetailsViewController: UITableViewController {
     @IBOutlet weak var newMissionTextField: UITextField!
     var missionToEdit: String?
     var missionToEditIndexPath: Int?
+    var editingBool: Bool?
 
     
     @IBAction func cancelBarButtonPressed(_ sender: UIBarButtonItem) {
