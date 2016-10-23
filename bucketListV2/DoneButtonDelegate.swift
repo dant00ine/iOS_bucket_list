@@ -11,5 +11,5 @@ protocol DoneButtonDelegate: class{
     
     func addMission(controller: MissionDetailsViewController, didFinishAddingMission mission: String)
     
-    func editMission(controller: MissionDetailsViewController, didFinishEditingMission mission: String, atIndexPath indexPath: Int)
+    func editMission(controller: MissionDetailsViewController, didFinishEditingMission mission: Mission)
 }

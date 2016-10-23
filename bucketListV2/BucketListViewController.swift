@@ -24,17 +24,18 @@ class BucketListViewController: UITableViewController, DoneButtonDelegate, Cance
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navigationController = segue.destination as! UINavigationController
         let controller = navigationController.topViewController as! MissionDetailsViewController
-        print("Sender:"); print("\(sender)")
         controller.cancelButtonDelegate = self
         controller.doneButtonDelegate = self
         if ((sender as? UITableViewCell) != nil) {
-            if let indexPath = tableView.indexPath(for: (sender as? UITableViewCell)!){
+            let indexPath = tableView.indexPath(for: (sender as? UITableViewCell)!)
                 controller.editingBool = true
-//                controller.missionToEdit = missions[indexPath.row]
-                controller.missionToEditIndexPath = indexPath.row
-            }
-        }
+                controller.missionToEditIndexPath = indexPath!.row
+                controller.missionToEdit = missions[indexPath!.row]
+            
+        } else{
             controller.editingBool = false
+        }
+        
 
     }
     
@@ -55,10 +56,19 @@ class BucketListViewController: UITableViewController, DoneButtonDelegate, Cance
         tableView.reloadData()
     }
     
-    func editMission(controller: MissionDetailsViewController, didFinishEditingMission mission: String, atIndexPath indexPath: Int){
+    func editMission(controller: MissionDetailsViewController, didFinishEditingMission mission: Mission){
         dismiss(animated: true, completion: nil)
-        missions.remove(at: indexPath)
-//        missions.append(mission)
+        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        print("\(mission)")
+        if managedObjectContext.hasChanges {
+            do{
+                try managedObjectContext.save()
+                print("edit success")
+            } catch {
+                print("\(error)")
+            }
+        }
+        fetchAllMissions()
         tableView.reloadData()
     }
     

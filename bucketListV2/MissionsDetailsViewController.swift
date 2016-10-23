@@ -6,6 +6,7 @@
 //  Copyright © 2016 Daniel Thompson. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class MissionDetailsViewController: UITableViewController {
@@ -13,19 +14,22 @@ class MissionDetailsViewController: UITableViewController {
     weak var doneButtonDelegate: DoneButtonDelegate?
     weak var cancelButtonDelegate: CancelButtonDelegate?
     @IBOutlet weak var newMissionTextField: UITextField!
-    var missionToEdit: String?
+    var missionToEdit: Mission?
     var missionToEditIndexPath: Int?
     var editingBool: Bool?
+    
+    let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
 
     
     @IBAction func cancelBarButtonPressed(_ sender: UIBarButtonItem) {
         cancelButtonDelegate?.cancelButtonPressedFrom()
     }
     @IBAction func doneBarButtonPressed(_ sender: UIBarButtonItem) {
-        if var mission = missionToEdit {
-            mission = newMissionTextField.text!
-            doneButtonDelegate?.editMission(controller: self, didFinishEditingMission: mission, atIndexPath: missionToEditIndexPath!)
+        if editingBool! == true {
+            print("Edit section")
+            doneButtonDelegate?.editMission(controller: self, didFinishEditingMission: missionToEdit!)
         } else {
+            print("Add section")
             let mission = newMissionTextField.text!
             doneButtonDelegate?.addMission(controller: self, didFinishAddingMission: mission)
         }
@@ -47,7 +51,7 @@ class MissionDetailsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        newMissionTextField.text = missionToEdit
+        newMissionTextField.text = missionToEdit?.details
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
