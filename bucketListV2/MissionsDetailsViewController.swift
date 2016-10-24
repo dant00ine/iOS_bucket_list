@@ -27,6 +27,7 @@ class MissionDetailsViewController: UITableViewController {
     @IBAction func doneBarButtonPressed(_ sender: UIBarButtonItem) {
         if editingBool! == true {
             print("Edit section")
+            missionToEdit?.details = newMissionTextField!.text
             doneButtonDelegate?.editMission(controller: self, didFinishEditingMission: missionToEdit!)
         } else {
             print("Add section")

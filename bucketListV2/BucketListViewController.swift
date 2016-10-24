@@ -59,6 +59,7 @@ class BucketListViewController: UITableViewController, DoneButtonDelegate, Cance
     func editMission(controller: MissionDetailsViewController, didFinishEditingMission mission: Mission){
         dismiss(animated: true, completion: nil)
         let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+        print("editMission in Bucket List")
         print("\(mission)")
         if managedObjectContext.hasChanges {
             do{
