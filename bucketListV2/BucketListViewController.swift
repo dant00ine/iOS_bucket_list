@@ -89,19 +89,26 @@ class BucketListViewController: UITableViewController, DoneButtonDelegate, Cance
         
     }
     
-    
-    
-    // SUPPORT EDITING THE VIEW TABLE
-    /*
+    // SUPPORT SWIPING TO DELETE FROM THE VIEW TABLE
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).managedObjectContext
+            print("Is htis what happened? \(indexPath)")
+            let missionToDelete = missions[indexPath[1]]
+            managedObjectContext.delete(missionToDelete)
+            fetchAllMissions()
+            tableView.reloadData()
+            
+            if managedObjectContext.hasChanges {
+                do{
+                    try managedObjectContext.save()
+                    print("edit success")
+                } catch {
+                    print("\(error)")
+                }
+            }
         }
     }
- */
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
